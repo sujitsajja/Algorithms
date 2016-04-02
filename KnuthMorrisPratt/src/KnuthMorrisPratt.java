@@ -17,7 +17,7 @@ public class KnuthMorrisPratt {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the main string : ");
-        String input = sc.next();
+        String input = sc.nextLine();
         System.out.print("Enter the string you want to search : ");
         String search = sc.next();
         int k = KMPMatcher(input,search);
@@ -80,3 +80,12 @@ public class KnuthMorrisPratt {
     }
 
 }
+
+/**
+ * Sample input:
+ * what are you doing?
+ * you
+ * 
+ * Sample output:
+ * 9
+ */
