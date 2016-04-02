@@ -29,10 +29,19 @@ public class KnuthMorrisPratt {
                     + "in the main string");
     }
 
+    /**
+     * Function to find the position of search string in the given string
+     * 
+     * @param input String which has to be searched
+     * @param search Pattern to be searched for
+     * 
+     * @return position of the pattern in the string
+     */
     private static int KMPMatcher(String input, String search) {
         int result = -1;
         int n = input.length();
         int m = search.length();
+        // We first compute the prefix function
         int[] prefix = computePrefix(search);
         int k = 0;
         for(int i=0;i<n;i++){
@@ -48,6 +57,13 @@ public class KnuthMorrisPratt {
         return result;
     }
 
+    /**
+     * prefix function which compares pattern with itself
+     * 
+     * @param search pattern to be searched
+     * 
+     * @return array of prefix values
+     */
     private static int[] computePrefix(String search) {
         int m = search.length();
         int[] prefix = new int[m];
