@@ -1,0 +1,2 @@
+Find the majority element present in the given array if it is guaranteed that such an element always exists.
+Majority element is the one which repeats atleast n/2 times where n is the size of the array.
