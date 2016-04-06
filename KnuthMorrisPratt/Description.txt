@@ -1,0 +1,1 @@
+Search for a given string in a large text file.
