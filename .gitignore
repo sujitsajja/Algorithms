@@ -63,3 +63,5 @@ $RECYCLE.BIN/
 *.lnk
 /KnuthMorrisPratt/nbproject/private/
 /KnuthMorrisPratt/build/
+/QuickSort/nbproject/private/
+/QuickSort/build/
