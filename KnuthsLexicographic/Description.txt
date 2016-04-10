@@ -1,0 +1,1 @@
+Given a number find the lexicographically next biggest number formed by the same set of digits
