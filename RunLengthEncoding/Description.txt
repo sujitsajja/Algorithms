@@ -1,0 +1,1 @@
+Given a string like aaaabb compress it to a4b2
