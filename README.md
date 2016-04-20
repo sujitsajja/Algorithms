@@ -1,2 +1,2 @@
 # Algorithms
-Implementation of various algorithms
+Implemented various algorithms using Java
