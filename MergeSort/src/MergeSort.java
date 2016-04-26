@@ -23,33 +23,59 @@ public class MergeSort {
         System.out.println("Enter the elements seperated by space/enter :");
         for(int i=0;i<n;i++)
             input[i] = sc.nextInt();
-        mergeSort(input, 0, n-1);
+        mergeSort(input);
         System.out.println("The input after sorting is :");
         System.out.println(Arrays.toString(input));
     }
 
     /**
+     * Function to call mergesort algorithm and return the result in arr
+     * 
+     * @param <T> The generic Type which implements the comparable interface
+     * @param arr An input array which needs to be sorted
+     */
+    public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
+        int n = arr.length;
+        T[] tempArray = (T[])new Comparable[n];
+        if(mergeSort(arr, tempArray, 0, n-1)==1){
+            for(int i=0;i<n;i++)
+                arr[i] = (T)tempArray[i];
+        }
+    }
+
+    /**
      * Function to implement merge sort algorithm
      * 
-     * @param arr  An input array which needs to be sorted
+     * @param arr An input array which needs to be sorted
+     * @param tempArray Temporary array
      * @param low  The low index of the array
      * @param high The high index of the array
-     * @param <T>  The generic Type which is implements the comparable interface
+     * @param <T>  The generic Type which implements the comparable interface
+     * 
+     * @return 0: if data is in arr
+     *         1: if data is in tempArray
      */
-    public static <T extends Comparable<? super T>> void mergeSort(T[] arr, int low, int high) {
-        if (low >= high) return;
+    public static <T extends Comparable<? super T>> int mergeSort(T[] arr, T[] tempArray, int low, int high) {
         // We use insertion sort when the input size is less than 11
         // as it has been proved that insertion sort is fatser for small inputs
         if (high - low <= 11) {
             insertionSort(arr, low, high);
-            return;
+            return 0;
         }
         int mid = (low + high) / 2;
         // split array into two halves and recursively solve both
-        mergeSort(arr, low, mid);
-        mergeSort(arr, mid + 1, high);
+        int t1 = mergeSort(arr, tempArray, low, mid);
+        int t2 = mergeSort(arr, tempArray, mid + 1, high);
         // Merge both the arrays
-        merge(arr, low, mid, high);
+        // if t1 == 0 data is in arr else data is in tempArr
+        if(t1==0){
+            merge(arr, tempArray, low, mid, high);
+            return 1;
+        }
+        else{
+            merge(tempArray, arr, low, mid, high);
+            return 0;
+        }
     }
 
     /**
@@ -59,34 +85,21 @@ public class MergeSort {
      * @param low  low index of the array
      * @param mid  mid point of the array
      * @param high high index of the array
-     * @param <T>  The generic Type which is implements the comparable interface
+     * @param <T>  The generic Type which implements the comparable interface
      */
-    private static <T extends Comparable<? super T>> void merge(T[] arr, int low, int mid, int high) {
-        Comparable[] aux = new Comparable[high - low + 1];
-        int arr1ptr, arr1end, arr2ptr, arr2end;
-        arr1ptr = low;
-        arr1end = mid;
-        arr2ptr = mid + 1;
-        arr2end = high;
-        int auxPtr = 0;
-        while ((arr1ptr <= arr1end) && (arr2ptr <= arr2end)) {
-            if (arr[arr1ptr].compareTo(arr[arr2ptr]) < 0)
-                aux[auxPtr++] = arr[arr1ptr++];
-            else
-                aux[auxPtr++] = arr[arr2ptr++];
+    private static <T extends Comparable<? super T>> void merge(T[] arr1, T[] arr2, int low, int mid, int high) {
+        int i = low;
+        int j = mid+1;
+        for(int k=low;k<=high;k++){
+            if(j>high || (i<=mid && arr1[i].compareTo(arr1[j])<=0)){
+                arr2[k] = arr1[i];
+                i++;
+            }
+            else{
+                arr2[k] = arr1[j];
+                j++;
+            }
         }
-        // copying rest of the elements into temp list
-        if (arr1ptr > arr1end) {
-            for (int k = arr2ptr; k <= arr2end; k++)
-                aux[auxPtr++] = arr[k];
-        } else {
-            for (int k = arr1ptr; k <= arr1end; k++)
-                aux[auxPtr++] = arr[k];
-        }
-        int l = 0;
-        // Copy temp list back to main array
-        for (int k = low; k <= high; k++)
-            arr[k] = (T) aux[l++];
     }
 
     /**
@@ -95,7 +108,7 @@ public class MergeSort {
      * @param arr  The input array which needs to be sorted
      * @param low  The low index of the array
      * @param high The high index of the array
-     * @param <T>  The generic Type which is implements the comparable interface
+     * @param <T>  The generic Type which implements the comparable interface
      */
     public static <T extends Comparable<? super T>> void insertionSort(T[] arr, int low, int high) {
         for (int i = low + 1; i <= high; i++) {
