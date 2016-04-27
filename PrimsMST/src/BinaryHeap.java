@@ -1,35 +1,39 @@
 import java.util.Comparator;
 
 /**
- * Class to implement the priority queue interface
+ * Class to represent a binary heap
  * 
  * @author SujitS
- * 
  * @param <T> Generic type
  */
-public class BinaryHeap<T extends Comparable<? super T>> implements PQ<T> {
+
+public class BinaryHeap<T> implements PQ<T> {
     //creating an array of least common ancestor i.e Object class
     Object[] pq;
     Comparator<T> c;
     static int size;
 
     /**
-     * Build a priority queue with a given array q
+     * Create an empty priority queue of given maximum size
      */
-    BinaryHeap(T[] q, Comparator<T> comp) {
-        pq = q;
+    BinaryHeap(int n, Comparator<T> comp) {
+        pq = new Object[n];
         c = comp;
-        size = q.length - 1;
-        buildHeap();
+        size = 0;
     }
 
+    /**
+     * Function to add an element into the priority queue
+     * 
+     * @param x Element to be added to the priority queue
+     */
     @Override
     public void insert(T x) {
         add(x);
     }
 
     /**
-     * Function to find and remove the element with least priority
+     * Function to remove and return the minimum priority element
      * 
      * @return Element present at the top of the priority queue
      */
@@ -38,13 +42,18 @@ public class BinaryHeap<T extends Comparable<? super T>> implements PQ<T> {
         return remove();
     }
 
+    /**
+     * Function to return the minimum priority element
+     * 
+     * @return Element present at the top of the priority queue
+     */
     @Override
     public T min() {
         return peek();
     }
 
     /**
-     * Function to add an element to the priority queue
+     * Function to add an element into the priority queue
      * 
      * @param x Element to be added to the priority queue
      */
@@ -57,6 +66,11 @@ public class BinaryHeap<T extends Comparable<? super T>> implements PQ<T> {
         }
     }
 
+    /**
+     * Function to remove and return the minimum priority element
+     * 
+     * @return Element present at the top of the priority queue
+     */
     @Override
     public T remove() {
         T min = null;
@@ -79,6 +93,11 @@ public class BinaryHeap<T extends Comparable<? super T>> implements PQ<T> {
         return (size == 0);
     }
 
+    /**
+     * Function to return the minimum priority element
+     * 
+     * @return Element present at the top of the priority queue
+     */
     @Override
     public T peek() {
         T min = null;
@@ -140,22 +159,6 @@ public class BinaryHeap<T extends Comparable<? super T>> implements PQ<T> {
     void buildHeap() {
         for (int i = size / 2; i > 0; i--)
             percolateDown(i);
-    }
-
-    /**
-     * Function to sort the array given a heap
-     * 
-     * @param A Array to be sorted
-     * @param comp Comparator
-     */
-    public void heapSort(T[] A, Comparator<T> comp) {
-        for (int i = size; i > 0; i--) {
-            T temp = A[i];
-            A[i] = A[1];
-            A[1] = temp;
-            size--;
-            percolateDown(1);
-        }
     }
 
 }
