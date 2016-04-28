@@ -76,3 +76,9 @@ $RECYCLE.BIN/
 /HeapSort/build/
 /PrimsMST/nbproject/private/
 /PrimsMST/build/
+/Bellmanford/nbproject/private/
+/Bellmanford/build/
+/Dijkstra/nbproject/private/
+/Dijkstra/build/
+/DAGShortestPath/nbproject/private/
+/DAGShortestPath/build/
