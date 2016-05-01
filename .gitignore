@@ -82,3 +82,5 @@ $RECYCLE.BIN/
 /Dijkstra/build/
 /DAGShortestPath/nbproject/private/
 /DAGShortestPath/build/
+/KruskalsMST/nbproject/private/
+/KruskalsMST/build/
